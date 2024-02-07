@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <string.h>
+
+char* analyze_sentiment(char* text) {
+    char* positive_words[] = { "good", "fantastic", "excellent", "loved" };
+    char* negative_words[] = { "terrible", "bad", "horrible", "hated" };
+
+    for (int i = 0; i < sizeof(positive_words) / sizeof(positive_words[0]); i++) {
+        if (strstr(text, positive_words[i]) != NULL) {
+            return "Positive";
+        }
+    }
+
+    for (int i = 0; i < sizeof(negative_words) / sizeof(negative_words[0]); i++) {
+        if (strstr(text, negative_words[i]) != NULL) {
+            return "Negative";
+        }
+    }
+
+    return "Neutral";
+}
+
+int main() {
+    // Buffer to hold user input
+    char input_buffer[500];  // Adjust size as needed
+
+    printf("Enter a text for sentiment analysis: ");
+
+    // Read user input
+    fgets(input_buffer, sizeof(input_buffer), stdin);
+
+    // Remove trailing newline character
+    input_buffer[strcspn(input_buffer, "\n")] = 0;
+
+    // Analyze sentiment
+    char* result = analyze_sentiment(input_buffer);
+
+    // Display result
+    printf("Sentiment: %s\n", result);
+
+    return 0;
+}
+
